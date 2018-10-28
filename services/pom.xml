@@ -11,5 +11,24 @@
 
     <artifactId>upload-services</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-cdi-weld</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-jta-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-jax-rs-jersey</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>service.socialbook.upload</groupId>
+            <artifactId>upload-models</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
