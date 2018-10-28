@@ -1,2 +1,7 @@
 .idea/
 socailbookuploadservice.iml
+
+api/target/
+models/models.iml
+models/target/
+services/target/

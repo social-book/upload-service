@@ -1,0 +1,17 @@
+kumuluzee:
+  name: users
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8081
+    http:
+      port: 8081
+  datasources:
+  - jndi-name: jdbc/UploadsDS
+    connection-url: jdbc:postgresql://192.168.99.100:5432/nejc
+    username: postgres
+    password: postgres
+    max-pool-size: 20
+
+#    docker run -d -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=nejc -p 5432:5432 postgres:10.5
