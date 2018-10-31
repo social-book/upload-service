@@ -1,3 +1,5 @@
+package com.socialbook.upload.api.v1;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.ByteStreams;
@@ -17,7 +19,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @WebServlet("/images")
 public class ImageServlet extends HttpServlet {
