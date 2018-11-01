@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 @ConfigBundle("app-properties")
 public class AppProperties {
-    @ConfigValue(value = "upload-imgurl")
+    @ConfigValue(value = "upload-imgurl.enabled", watch = true)
     private boolean uploadImageUrlEnable;
 
     public boolean isUploadImageUrlEnable() {

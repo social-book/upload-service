@@ -19,6 +19,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -33,9 +34,13 @@ public class ImagesBean {
     @PersistenceContext(unitName = "upload-service-jpa")
     private EntityManager entityManager;
 
+
+    private Client httpClient;
+
     @PostConstruct
     private void init() {
         logger.info("Initialization of bean");
+        httpClient = ClientBuilder.newClient();
     }
 
 
@@ -48,8 +53,6 @@ public class ImagesBean {
     @Inject
     @DiscoverService("catalog-services")
     private Optional<String> baseUrl;
-
-    private Client httpClient;
 
     @Inject
     AppProperties appProperties;
@@ -74,17 +77,17 @@ public class ImagesBean {
         logger.info("checking if upload image url enabled");
         if (appProperties.isUploadImageUrlEnable()) {
             logger.info("creating upload image url");
-            createUploadImageUrl(image.getUser_id(), image.getAlbum_id());
+            createUploadImageUrl(image.getUser_id(), image.getAlbum_id(), image.getImage_id());
         } else {
             logger.info("upload image url disabled!!!");
         }
     }
 
 
-    private void createUploadImageUrl(String userId, String albumId) {
+    private void createUploadImageUrl(String userId, String albumId, Integer imageId) {
         try {
             httpClient
-                    .target(baseUrl.get() + "/v1/albums/add/" + userId + "/" + albumId)
+                    .target(baseUrl.get() + "/v1/albums/add/" + userId + "/" + albumId + "/" + imageId)
                     .request().get(new GenericType<String>() {
             });
         } catch (WebApplicationException | ProcessingException e) {
