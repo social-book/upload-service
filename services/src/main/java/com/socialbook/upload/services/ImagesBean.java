@@ -8,6 +8,7 @@ import com.socialbook.uploads.entities.Image;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@RequestScoped
 public class ImagesBean {
 
     private static final String TAG = ImagesBean.class.getName();
