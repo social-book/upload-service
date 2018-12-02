@@ -77,7 +77,7 @@ public class ImagesBean {
         }
         logger.info("checking if upload image url enabled");
         if (appProperties.isUploadImageUrlEnable()) {
-            logger.info("creating upload image url");
+            logger.info("creating upload image url : " + baseUrl.get());
             createUploadImageUrl(image.getUser_id(), image.getAlbum_id(), image.getImage_id());
         } else {
             logger.info("upload image url disabled!!!");
@@ -86,11 +86,13 @@ public class ImagesBean {
 
 
     private void createUploadImageUrl(String userId, String albumId, Integer imageId) {
+        logger.info("Sending request to: " + baseUrl.get() + "/v1/albums/add/" + userId + "/" + albumId + "/" + imageId);
         try {
             httpClient
                     .target(baseUrl.get() + "/v1/albums/add/" + userId + "/" + albumId + "/" + imageId)
                     .request().get(new GenericType<String>() {
             });
+
         } catch (WebApplicationException | ProcessingException e) {
             logger.severe(e.getMessage());
         }
