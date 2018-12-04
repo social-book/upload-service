@@ -8,10 +8,7 @@ import com.socialbook.uploads.entities.Image;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Base64;
@@ -26,7 +23,7 @@ public class UploadsResource {
     @Inject
     ImagesBean imagesBean;
 
-    @GET
+    @POST
     public Response uploadImage(ImageString imageString) {
         byte[] decodedBytes = Base64.getDecoder().decode(imageString.getImage());
 
@@ -38,6 +35,25 @@ public class UploadsResource {
         image.setUser_id(imageString.getUserId());
         image.setImageData(decodedBytes);
         imagesBean.addImage(image);
-        return Response.status(Response.Status.CREATED).build();
+        return Response.status(Response.Status.CREATED)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization, body")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity("")
+                .build();
+    }
+
+    @GET
+    public Response uploadImageGet(@QueryParam("image") String image,
+                                   @QueryParam("userId") String userId,
+                                   @QueryParam("albumId") String albumId) {
+        ImageString imageString = new ImageString();
+        imageString.setAlbumId(albumId);
+        imageString.setUserId(userId);
+        imageString.setImage(image);
+        return uploadImage(imageString);
     }
 }
